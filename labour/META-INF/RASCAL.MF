@@ -1,0 +1,5 @@
+Manifest-Version: 0.1
+Project-Name: labour_assignment2
+Main-Module: labour::Plugin
+Project-Version: 1.0.0
+Source: src

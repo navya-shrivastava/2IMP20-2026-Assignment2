@@ -1,0 +1,81 @@
+// Valid LaBouR specification — mirrors Listing 6 from Assignment 2 spec.
+// This is the primary test input. It contains:
+//   - one route with a split (holds 0003/0004 and 0005/0006)
+//   - one circle volume with front_holds (cartesian pos) and side_holds (angular pos)
+//   - one triangle volume with left_holds
+//   - holds of mixed colours (0003 is blue+white, rest are white — intersection = {white})
+
+bouldering_wall "Example wall" {
+  routes [
+    bouldering_route "Split route" {
+      grade: "5A",
+      grid_base_point { x: 0, y: 0 },
+      holds ["0001", "0002", {"0003", "0004"}, {"0005", "0006"}, "0007"]
+    }
+  ],
+  volumes [
+    circle {
+      pos: { x: 50, y: 200 },
+      depth: -10,
+      radius: 50,
+      front_holds [
+        hold "0001" {
+          pos { x: 2, y: 20 },
+          shape: "5",
+          rotation: 98,
+          colours [ white ],
+          start_hold: 1
+        },
+        hold "0002" {
+          pos { x: 2, y: 20 },
+          shape: "5",
+          rotation: 98,
+          colours [ white ]
+        },
+        hold "0003" {
+          pos { x: 15, y: 30 },
+          shape: "52",
+          colours [ blue, white ]
+        }
+      ],
+      side_holds [
+        hold "0004" {
+          pos { angle: 45 },
+          shape: "42",
+          colours [ white, orange, green ]
+        }
+      ]
+    },
+    triangle {
+      pos: { x: 0, y: 0 },
+      extrusion: { x: 10, y: 2 },
+      depth: 40,
+      corners [
+        { x: 20, y: 0 },
+        { x: -20, y: 0 },
+        { x: 0, y: 30 }
+      ],
+      left_holds [
+        hold "0005" {
+          pos { x: 12, y: 25 },
+          shape: "5",
+          rotation: 0,
+          colours [ white ]
+        },
+        hold "0006" {
+          pos { x: 10, y: 14 },
+          shape: "53",
+          rotation: 98,
+          colours [ white ]
+        },
+        hold "0007" {
+          pos { x: 15, y: 19 },
+          shape: "53",
+          rotation: 0,
+          colours [ white, red ],
+          end_hold
+        }
+      ]
+    }
+  ]
+}
