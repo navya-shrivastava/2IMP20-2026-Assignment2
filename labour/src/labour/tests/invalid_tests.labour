@@ -1,0 +1,225 @@
+// invalid test programs — each block violates exactly one well-formedness rule.
+// in practice, test each one in its own .labour file.
+// uncomment one block at a time to test.
+
+
+// rule 2 — route has only one hold (needs >= 2)
+/*
+bouldering_wall "bad-rule2" {
+  routes [
+    bouldering_route "too few holds" {
+      grade: "5A",
+      grid_base_point { x: 0, y: 0 },
+      holds ["0001"]
+    }
+  ],
+  volumes [
+    circle {
+      pos: { x: 0, y: 0 },
+      depth: 10,
+      radius: 20,
+      front_holds [
+        hold "0001" {
+          pos { x: 0, y: 0 },
+          shape: "5",
+          colours [ red ]
+        }
+      ]
+    }
+  ]
+}
+*/
+
+
+// rule 3 — three start holds (maximum is 2)
+/*
+bouldering_wall "bad-rule3" {
+  routes [
+    bouldering_route "too many starts" {
+      grade: "5B",
+      grid_base_point { x: 0, y: 0 },
+      holds ["0001", "0002", "0003"]
+    }
+  ],
+  volumes [
+    circle {
+      pos: { x: 0, y: 0 },
+      depth: 10,
+      radius: 30,
+      front_holds [
+        hold "0001" {
+          pos { x: 0, y: 0 },
+          shape: "1",
+          colours [ blue ],
+          start_hold: 1
+        },
+        hold "0002" {
+          pos { x: 5, y: 10 },
+          shape: "2",
+          colours [ blue ],
+          start_hold: 2
+        },
+        hold "0003" {
+          pos { x: 5, y: 20 },
+          shape: "3",
+          colours [ blue ],
+          start_hold: 1
+        }
+      ]
+    }
+  ]
+}
+*/
+
+
+// rule 4 — two splits in one route
+/*
+bouldering_wall "bad-rule4" {
+  routes [
+    bouldering_route "two splits" {
+      grade: "6A",
+      grid_base_point { x: 0, y: 0 },
+      holds ["0001", {"0002", "0003"}, {"0004", "0005"}]
+    }
+  ],
+  volumes [
+    circle {
+      pos: { x: 0, y: 0 },
+      depth: 10,
+      radius: 50,
+      front_holds [
+        hold "0001" { pos { x: 0, y: 0 },   shape: "1", colours [ green ] },
+        hold "0002" { pos { x: 5, y: 10 },  shape: "2", colours [ green ] },
+        hold "0003" { pos { x: -5, y: 10 }, shape: "3", colours [ green ] },
+        hold "0004" { pos { x: 5, y: 20 },  shape: "4", colours [ green ] },
+        hold "0005" { pos { x: -5, y: 20 }, shape: "5", colours [ green ] }
+      ]
+    }
+  ]
+}
+*/
+
+
+// rule 8 — split after a merge
+/*
+bouldering_wall "bad-rule8" {
+  routes [
+    bouldering_route "split after merge" {
+      grade: "6B",
+      grid_base_point { x: 0, y: 0 },
+      holds ["0001", {"0002", "0003"}, "0004", {"0005", "0006"}]
+    }
+  ],
+  volumes [
+    circle {
+      pos: { x: 0, y: 0 },
+      depth: 10,
+      radius: 50,
+      front_holds [
+        hold "0001" { pos { x: 0, y: 0 },   shape: "1", colours [ purple ] },
+        hold "0002" { pos { x: 5, y: 10 },  shape: "2", colours [ purple ] },
+        hold "0003" { pos { x: -5, y: 10 }, shape: "3", colours [ purple ] },
+        hold "0004" { pos { x: 0, y: 20 },  shape: "4", colours [ purple ] },
+        hold "0005" { pos { x: 5, y: 30 },  shape: "5", colours [ purple ] },
+        hold "0006" { pos { x: -5, y: 30 }, shape: "6", colours [ purple ] }
+      ]
+    }
+  ]
+}
+*/
+
+
+// rule 11 — holds in route do not share a colour
+/*
+bouldering_wall "bad-rule11" {
+  routes [
+    bouldering_route "colour mismatch" {
+      grade: "4A",
+      grid_base_point { x: 0, y: 0 },
+      holds ["0001", "0002"]
+    }
+  ],
+  volumes [
+    circle {
+      pos: { x: 0, y: 0 },
+      depth: 10,
+      radius: 30,
+      front_holds [
+        hold "0001" {
+          pos { x: 0, y: 0 },
+          shape: "1",
+          colours [ red ]
+        },
+        hold "0002" {
+          pos { x: 5, y: 10 },
+          shape: "2",
+          colours [ blue ]
+        }
+      ]
+    }
+  ]
+}
+*/
+
+
+// rule 14 — rotation out of range (0-359)
+/*
+bouldering_wall "bad-rule14" {
+  routes [
+    bouldering_route "bad rotation" {
+      grade: "4B",
+      grid_base_point { x: 0, y: 0 },
+      holds ["0001", "0002"]
+    }
+  ],
+  volumes [
+    circle {
+      pos: { x: 0, y: 0 },
+      depth: 10,
+      radius: 30,
+      front_holds [
+        hold "0001" {
+          pos { x: 0, y: 0 },
+          shape: "1",
+          colours [ yellow ],
+          rotation: 400
+        },
+        hold "0002" {
+          pos { x: 5, y: 10 },
+          shape: "2",
+          colours [ yellow ]
+        }
+      ]
+    }
+  ]
+}
+*/
+
+
+// rule 19 — triangle with only 2 corners
+/*
+bouldering_wall "bad-rule19" {
+  routes [
+    bouldering_route "bad triangle" {
+      grade: "5C",
+      grid_base_point { x: 0, y: 0 },
+      holds ["0001", "0002"]
+    }
+  ],
+  volumes [
+    triangle {
+      pos: { x: 0, y: 0 },
+      extrusion: { x: 5, y: 5 },
+      depth: 20,
+      corners [
+        { x: 10, y: 0 },
+        { x: -10, y: 0 }
+      ],
+      left_holds [
+        hold "0001" { pos { x: 0, y: 5 },  shape: "1", colours [ orange ] },
+        hold "0002" { pos { x: 0, y: 10 }, shape: "2", colours [ orange ] }
+      ]
+    }
+  ]
+}
+*/
